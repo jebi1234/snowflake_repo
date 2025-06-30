@@ -1,4 +1,4 @@
-name: Deploy Snowflake Table
+name: Deploy to Snowflake
 
 on:
   push:
@@ -18,17 +18,15 @@ jobs:
       with:
         python-version: '3.10'
 
-    - name: Install schemachange
-      run: pip install schemachange
+    - name: Install dependencies
+      run: pip install snowflake-connector-python
 
-    - name: Deploy to Snowflake
+    - name: Run deployment script
       env:
         SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
         SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
         SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
-        SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
-        SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
         SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
         SNOWFLAKE_SCHEMA: ${{ secrets.SNOWFLAKE_SCHEMA }}
-      run: |
-        schemachange -f ./snowflake/scripts -a $SNOWFLAKE_ACCOUNT -u $SNOWFLAKE_USER -r $SNOWFLAKE_ROLE -w $SNOWFLAKE_WAREHOUSE -d $SNOWFLAKE_DATABASE -s $SNOWFLAKE_SCHEMA -p $SNOWFLAKE_PASSWORD
+        SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+      run: python deploy_to_snowflake.py

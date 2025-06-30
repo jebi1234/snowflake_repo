@@ -1,4 +1,4 @@
-CREATE OR REPLACE TABLE my_table1 (
+CREATE OR REPLACE TABLE my_table (
     id INT,
     name STRING,
     created_at TIMESTAMP

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Compare Environments</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 60px auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        label {
+            font-weight: 600;
+            color: #555;
+        }
+
+        select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        button {
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .clear-btn {
+            background-color: #6c757d;
+        }
+
+        .clear-btn:hover {
+            background-color: #5a6268;
+        }
+
+        .result {
+            margin-top: 30px;
+            background: #f1f1f1;
+            padding: 20px;
+            border-radius: 8px;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+
+        .loader {
+            display: none;
+            margin: 20px auto;
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid #007bff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .progress-bar {
+            display: none;
+            height: 6px;
+            background: linear-gradient(to right, #007bff 0%, #00c6ff 100%);
+            animation: progress 2s infinite;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+
+        @keyframes progress {
+            0% { width: 0%; }
+            50% { width: 80%; }
+            100% { width: 0%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Compare Snowflake Environments</h1>
+        <form method="post" onsubmit="showLoader()">
+            {% csrf_token %}
+            <label for="env1">Select First Environment:</label>
+            <select name="env1" id="env1" required>
+                <option value="dev">Dev</option>
+                <option value="qa">QA</option>
+            </select>
+
+            <label for="env2">Select Second Environment:</label>
+            <select name="env2" id="env2" required>
+                <option value="dev">Dev</option>
+                <option value="qa">QA</option>
+            </select>
+
+            <div class="buttons">
+                <button type="submit">Compare</button>
+                <button type="button" class="clear-btn" onclick="clearResult()">Clear</button>
+            </div>
+
+            <div class="loader" id="loader"></div>
+            <div class="progress-bar" id="progressBar"></div>
+        </form>
+
+                {% if result %}
+            <div class="result" id="resultBox">
+                <h2>Comparison Result:</h2>
+                {{ result }}
+            </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function showLoader() {
+            document.getElementById('loader').style.display = 'block';
+            document.getElementById('progressBar').style.display = 'block';
+        }
+
+        function clearResult() {
+            const resultBox = document.getElementById('resultBox');
+            if (resultBox) {
+                resultBox.innerHTML = '';
+            }
+        }
+    </script>
+</body>
+</html>

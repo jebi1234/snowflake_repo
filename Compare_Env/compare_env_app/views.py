@@ -4,20 +4,20 @@ import snowflake.connector
 # Replace with your actual Snowflake credentials
 SNOWFLAKE_CONFIG = {
     'dev': {
-        'user': 'mahammad',
-        'password': 'M@hamm@d123456',
-        'account': 'zpnndpl-kp62772',
-        'warehouse': 'COMPUTE_WH',
-        'database': 'DEV',
-        'schema': 'STAGE'
+        'user': 'XXXXXX',
+        'password': 'XXXXXX',
+        'account': 'XXXXXX',
+        'warehouse': 'XXXXXX',
+        'database': 'XXXXXX',
+        'schema': 'XXXXXX'
     },
     'qa': {
-        'user': 'mahammad',
-        'password': 'M@hamm@d123456',
-        'account': 'zpnndpl-kp62772',
-        'warehouse': 'COMPUTE_WH',
-        'database': 'QA',
-        'schema': 'STAGE'
+        'user': 'XXXXXX',
+        'password': 'XXXXXX',
+        'account': 'XXXXXX',
+        'warehouse': 'XXXXXX',
+        'database': 'XXXXXX',
+        'schema': 'XXXXXX'
     }
 }
 
